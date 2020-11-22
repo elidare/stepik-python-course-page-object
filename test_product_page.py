@@ -38,7 +38,7 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
 
 class TestAddToBasket():
     @pytest.mark.parametrize('link', urls)
-    def test_guest_can_add_product_to_basket(browser, link):
+    def test_guest_can_add_product_to_basket(self, browser, link):
         product_page = ProductPage(browser, link)
         product_page.open()
         product_data = product_page.get_product_data()
@@ -47,19 +47,19 @@ class TestAddToBasket():
         product_page.should_be_added_to_basket(*product_data)
 
     @pytest.mark.xfail
-    def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+    def test_guest_cant_see_success_message_after_adding_product_to_basket(self, browser):
         product_page = ProductPage(browser, product_base_link)
         product_page.open()
         product_page.add_product_to_basket()
         product_page.should_not_have_success_message()
 
-    def test_guest_cant_see_success_message(browser):
+    def test_guest_cant_see_success_message(self, browser):
         product_page = ProductPage(browser, product_base_link)
         product_page.open()
         product_page.should_not_have_success_message()
 
     @pytest.mark.xfail
-    def test_message_disappeared_after_adding_product_to_basket(browser):
+    def test_message_disappeared_after_adding_product_to_basket(self, browser):
         product_page = ProductPage(browser, product_base_link)
         product_page.open()
         product_page.add_product_to_basket()
