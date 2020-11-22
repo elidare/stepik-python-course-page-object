@@ -2,13 +2,10 @@ from pages.login_page import LoginPage
 from pages.basket_page import BasketPage
 from pages.product_page import ProductPage
 import pytest
+import time
 
 
 product_base_link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"
-urls = [f"{product_base_link}/?promo=offer{n}" for n in range(10)]
-
-# ?promo=offer7 has expected bug on the page
-urls[7] = pytest.param(urls[7], marks=pytest.mark.xfail)
 
 
 @pytest.mark.login_guest
@@ -38,6 +35,17 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
 
 
 class TestUserAddToBasketFromProductPage():
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        login_url = "http://selenium1py.pythonanywhere.com/accounts/login/"
+        email = str(time.time()) + "@fakemail.org"
+        password = str(time.time()) + '_pswd'
+
+        login_page = LoginPage(browser, login_url)
+        login_page.open()
+        login_page.register_new_user(email, password)
+        login_page.should_be_authorized_user()
+
     def test_user_can_add_product_to_basket(self, browser):
         product_page = ProductPage(browser, product_base_link)
         product_page.open()
@@ -49,6 +57,11 @@ class TestUserAddToBasketFromProductPage():
         product_page = ProductPage(browser, product_base_link)
         product_page.open()
         product_page.should_not_have_success_message()
+
+
+urls = [f"{product_base_link}/?promo=offer{n}" for n in range(10)]
+# ?promo=offer7 has expected bug on the page
+urls[7] = pytest.param(urls[7], marks=pytest.mark.xfail)
 
 
 @pytest.mark.parametrize('link', urls)

@@ -58,6 +58,10 @@ class BasePage():
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
 
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), \
+            "User icon is not presented, probably unauthorised user"
+
     def solve_quiz_and_get_code(self):
         # https://stepik.org/lesson/201964/step/2?unit=176022
         alert = self.browser.switch_to.alert
