@@ -23,6 +23,14 @@ class ProductPage(BasePage):
         add_button = self.browser.find_element(*ProductPageLocators.ADD_TO_BASKET)
         add_button.click()
 
+    def should_not_have_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.ALERT_PRODUCT_ADDED), \
+            "Success message is presented, but should not be"
+
+    def should_disappear_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.ALERT_PRODUCT_ADDED), \
+            "Success message has not disappeared, but should have"
+
     def should_be_added_to_basket(self, product_name, product_price):
         self.should_be_same_name(product_name)
         self.should_be_same_price(product_price)
