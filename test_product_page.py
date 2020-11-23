@@ -65,7 +65,6 @@ urls[7] = pytest.param(urls[7], marks=pytest.mark.xfail)
 
 
 @pytest.mark.parametrize('link', urls)
-@pytest.mark.skip
 def test_guest_can_add_product_to_basket(browser, link):
     product_page = ProductPage(browser, link)
     product_page.open()
