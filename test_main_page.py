@@ -7,7 +7,7 @@ main_base_link = "http://selenium1py.pythonanywhere.com/"
 
 
 @pytest.mark.login_guest
-class TestLoginFromMainPage():
+class TestLoginFromMainPage:
     def test_guest_can_go_to_login_page(self, browser):
         page = MainPage(browser, main_base_link)
         page.open()

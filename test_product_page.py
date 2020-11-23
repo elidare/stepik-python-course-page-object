@@ -9,7 +9,7 @@ product_base_link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-w
 
 
 @pytest.mark.login_guest
-class TestLoginFromProductPage():
+class TestLoginFromProductPage:
     def test_guest_should_see_login_link_on_product_page(self, browser):
         link = "http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/"
         product_page = ProductPage(browser, link)
@@ -34,7 +34,7 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     basket_page.should_have_empty_text()
 
 
-class TestUserAddToBasketFromProductPage():
+class TestUserAddToBasketFromProductPage:
     @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser):
         login_url = "http://selenium1py.pythonanywhere.com/accounts/login/"

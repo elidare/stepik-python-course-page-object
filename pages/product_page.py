@@ -9,7 +9,6 @@ class ProductPage(BasePage):
             element = self.browser.find_element(how, what)
             return self.get_text_from_element(*ProductPageLocators.STRONG, element)
         except NoSuchElementException:
-            # todo
             return ''
 
     def get_product_data(self):

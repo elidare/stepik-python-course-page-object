@@ -5,7 +5,7 @@ from .locators import BasePageLocators
 import math
 
 
-class BasePage():
+class BasePage:
     def __init__(self, browser, url, timeout=10):
         self.browser = browser
         self.url = url
@@ -44,7 +44,6 @@ class BasePage():
         try:
             return element.find_element(how, what).text
         except NoSuchElementException:
-            # todo
             return ''
 
     def go_to_login_page(self):
